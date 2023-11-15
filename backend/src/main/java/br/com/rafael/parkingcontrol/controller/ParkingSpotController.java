@@ -43,6 +43,17 @@ public class ParkingSpotController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    @GetMapping("is-occupied/{isOccupied}")
+    public ResponseEntity<List<ParkingSpot>> findByIsOccupied(@PathVariable Boolean isOccupied) {
+        List<ParkingSpot> parkingSpots = parkingSpotService.findByIsOccupied(isOccupied);
+
+        if (parkingSpots != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpots);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
     @PostMapping
     public ResponseEntity<ParkingSpot> save(@Valid @RequestBody ParkingSpot parkingSpot) {
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpot));

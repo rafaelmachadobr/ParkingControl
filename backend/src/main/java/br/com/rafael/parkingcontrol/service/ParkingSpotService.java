@@ -24,6 +24,10 @@ public class ParkingSpotService {
         return parkingSpotRepository.findByNumber(number);
     }
 
+    public List<ParkingSpot> findByIsOccupied(Boolean isOccupied) {
+        return parkingSpotRepository.findByIsOccupied(isOccupied);
+    }
+
     public ParkingSpot save(ParkingSpot parkingSpot) {
         return parkingSpotRepository.save(parkingSpot);
     }
