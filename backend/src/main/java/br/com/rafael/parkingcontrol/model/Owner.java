@@ -1,7 +1,9 @@
 package br.com.rafael.parkingcontrol.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +29,11 @@ public class Owner {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email is invalid, use the format exemple@email.com")
     private String email;
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Phone is mandatory")
+    @Pattern(regexp = "^\\([1-9]{2}\\) [9]{1}[0-9]{4}-[0-9]{4}$", message = "Phone is invalid, use the format (99) 99999-9999")
     private String phone;
 }

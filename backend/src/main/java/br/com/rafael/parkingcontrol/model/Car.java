@@ -3,6 +3,7 @@ package br.com.rafael.parkingcontrol.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Car {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Plate is mandatory")
+    @Pattern(regexp = "^[A-Z]{3}-[0-9]{4}$", message = "Plate is invalid, use the format AAA-0000")
     private String plate;
 
     @Column(nullable = false)
