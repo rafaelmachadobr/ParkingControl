@@ -2,6 +2,7 @@ package br.com.rafael.parkingcontrol.controller;
 
 import br.com.rafael.parkingcontrol.model.Owner;
 import br.com.rafael.parkingcontrol.service.OwnerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,12 @@ public class OwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<Owner> save(@RequestBody Owner owner) {
+    public ResponseEntity<Owner> save(@Valid @RequestBody Owner owner) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ownerService.save(owner));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Owner> update(@PathVariable String id, @RequestBody Owner owner) {
+    public ResponseEntity<Owner> update(@PathVariable String id, @Valid @RequestBody Owner owner) {
         Owner ownerUpdated = ownerService.update(id, owner);
 
         if (ownerUpdated != null) {

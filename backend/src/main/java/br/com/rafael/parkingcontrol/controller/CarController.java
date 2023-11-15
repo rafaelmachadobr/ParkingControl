@@ -2,6 +2,7 @@ package br.com.rafael.parkingcontrol.controller;
 
 import br.com.rafael.parkingcontrol.model.Car;
 import br.com.rafael.parkingcontrol.service.CarService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +38,12 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<Car> save(@RequestBody Car car) {
+    public ResponseEntity<Car> save(@Valid @RequestBody Car car) {
         return ResponseEntity.status(HttpStatus.CREATED).body(carService.save(car));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Car> update(@PathVariable String id, @RequestBody Car car) {
+    public ResponseEntity<Car> update(@PathVariable String id, @Valid @RequestBody Car car) {
         Car carUpdated = carService.update(id, car);
 
         if (carUpdated != null) {
