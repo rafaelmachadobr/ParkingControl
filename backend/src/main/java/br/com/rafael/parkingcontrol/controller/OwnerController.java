@@ -48,9 +48,9 @@ public class OwnerController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         if (ownerService.findById(id) != null) {
-            ownerService.deleteById(id);
+            ownerService.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 

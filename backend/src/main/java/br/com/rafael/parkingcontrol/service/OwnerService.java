@@ -39,7 +39,7 @@ public class OwnerService {
         return null;
     }
 
-    public void deleteById(String id) {
+    public void delete(String id) {
         ownerRepository.deleteById(id);
     }
 }
