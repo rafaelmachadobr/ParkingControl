@@ -22,7 +22,13 @@ public class OwnerController {
 
     @GetMapping("{id}")
     public ResponseEntity<Owner> findById(@PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.OK).body(ownerService.findById(id));
+        Owner owner = ownerService.findById(id);
+
+        if (owner != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(owner);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PostMapping
@@ -32,8 +38,10 @@ public class OwnerController {
 
     @PutMapping("{id}")
     public ResponseEntity<Owner> update(@PathVariable String id, @RequestBody Owner owner) {
-        if (ownerService.update(id, owner) != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(ownerService.update(id, owner));
+        Owner ownerUpdated = ownerService.update(id, owner);
+
+        if (ownerUpdated != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(ownerUpdated);
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
