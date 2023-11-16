@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
-import ErrorPage from "./pages/ErrorPage.tsx";
-import Overview from "./pages/Overview.tsx";
-import Parking from "./pages/Parking.tsx";
+import ErrorPage from "./routes/ErrorPage.tsx";
+import Overview from "./routes/Overview.tsx";
+import Parking from "./routes/Parking.tsx";
 
 const router = createBrowserRouter([
   {
