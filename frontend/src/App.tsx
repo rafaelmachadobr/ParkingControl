@@ -1,7 +1,11 @@
+import { Outlet } from "react-router-dom";
+
 function App() {
   return (
     <>
-      <h1 className="text-red-700">Olá, Mundo!</h1>
+      <p>NavBar</p>
+      <Outlet />
+      <p>Footer</p>
     </>
   );
 }
