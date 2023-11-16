@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
+
 const Overview = () => {
-  return <div>Overview</div>;
+  return <Button variant="contained">Overview</Button>;
 };
 
 export default Overview;
