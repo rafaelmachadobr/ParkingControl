@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  FaArrowLeft,
   FaCar,
   FaChartBar,
   FaCog,
@@ -33,9 +32,10 @@ const Sidebar = () => {
         open ? "w-72" : "w-20 "
       } bg-dark-purple h-screen p-5 pt-8 relative duration-300`}
     >
-      <FaArrowLeft
-        className={`absolute cursor-pointer -right-3 top-9 w-7 h-7 border-dark-purple flex justify-center items-center bg-light-white border-2 rounded-full
-        ${!open && "rotate-180"}`}
+      <img
+        src="./src/assets/control.png"
+        className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple 
+           border-2 rounded-full transition-transform transform hover:scale-150 ${!open && "rotate-180"}`}
         onClick={() => setOpen(!open)}
       />
       <Link to="/">
