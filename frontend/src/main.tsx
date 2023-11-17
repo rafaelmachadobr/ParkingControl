@@ -6,6 +6,8 @@ import "./index.css";
 import ErrorPage from "./routes/ErrorPage.tsx";
 import Overview from "./routes/Overview.tsx";
 import Parking from "./routes/Parking.tsx";
+import Login from "./routes/Login.tsx";
+import Register from "./routes/Register.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Overview /> },
       { path: "/parking", element: <Parking /> },
+      { path: "/auth/login", element: <Login /> },
+      { path: "/auth/register", element: <Register /> },
     ],
   },
 ]);
