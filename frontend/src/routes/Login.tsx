@@ -6,9 +6,16 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const { signIn, signed } = React.useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -19,14 +26,27 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    const data = {
+      email,
+      password,
+    };
+
+    await signIn(data);
   };
+
+  React.useEffect(() => {
+    if (signed) {
+      navigate("/");
+    }
+  }, [signed, navigate]);
 
   return (
     <main className="bg-gray-100">
@@ -58,9 +78,9 @@ const Login = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
+            onSubmit={handleSubmit}
           >
             <TextField
               margin="normal"
@@ -69,6 +89,8 @@ const Login = () => {
               id="email"
               label="Endereço de Email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -76,6 +98,8 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               name="password"
               label="Senha"
               type={showPassword ? "text" : "password"}

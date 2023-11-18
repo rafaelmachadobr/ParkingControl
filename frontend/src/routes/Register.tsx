@@ -9,9 +9,19 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { api } from "../services/api";
+import { UserRequest } from "../types/UserRequest";
 
 const Register = () => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
+  const { signed } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
@@ -19,11 +29,50 @@ const Register = () => {
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
 
+  const handleSaveRegister = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (!email || !password || !confirmPassword) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("As senhas não conferem!");
+      return;
+    }
+
+    const data: UserRequest = {
+      email,
+      password,
+      role: "ADMIN",
+    };
+
+    console.log(data);
+
+    const response = await api.post("/api/v1/auth/register", data);
+
+    if (response.data.error) {
+      alert("Erro ao cadastrar usuário!");
+      return;
+    }
+
+    alert("Usuário cadastrado com sucesso!");
+
+    navigate("/auth/login");
+  };
+
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
   };
+
+  React.useEffect(() => {
+    if (signed) {
+      navigate("/");
+    }
+  }, [signed, navigate]);
 
   return (
     <main className="bg-gray-100">
@@ -53,13 +102,20 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Registre-se
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSaveRegister}
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
               label="Endereço de Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               name="email"
               autoComplete="email"
               autoFocus
@@ -70,6 +126,8 @@ const Register = () => {
               fullWidth
               name="password"
               label="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
@@ -93,6 +151,8 @@ const Register = () => {
               required
               fullWidth
               name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               label="Confirmar Senha"
               type={showConfirmPassword ? "text" : "password"}
               id="confirmPassword"
@@ -106,11 +166,7 @@ const Register = () => {
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
                     >
-                      {showConfirmPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -128,7 +184,7 @@ const Register = () => {
               <Typography color="text.secondary" align="center">
                 Já tem uma conta?{" "}
                 <Link to="/auth/login" className="text-blue-500">
-                    Entrar
+                  Entrar
                 </Link>
               </Typography>
             </div>

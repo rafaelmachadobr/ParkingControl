@@ -4,10 +4,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
 import ErrorPage from "./routes/ErrorPage.tsx";
+import Login from "./routes/Login.tsx";
 import Overview from "./routes/Overview.tsx";
 import Parking from "./routes/Parking.tsx";
-import Login from "./routes/Login.tsx";
 import Register from "./routes/Register.tsx";
+import { AuthProvider } from "./contexts/AuthContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

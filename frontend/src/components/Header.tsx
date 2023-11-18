@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,6 +62,8 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const { singOut } = React.useContext(AuthContext);
+
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -73,6 +76,11 @@ export default function Header() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+  const handleSingOut = () => {
+    handleMenuClose();
+    singOut();
+  }
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -96,7 +104,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Minha conta</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sair do sistema</MenuItem>
+      <MenuItem onClick={handleSingOut}>Sair do sistema</MenuItem>
     </Menu>
   );
 
