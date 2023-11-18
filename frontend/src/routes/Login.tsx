@@ -39,7 +39,7 @@ const Login = () => {
       password,
     };
 
-    await signIn(data);
+    signIn(data);
   };
 
   React.useEffect(() => {

@@ -62,7 +62,7 @@ export default function Header() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const { singOut } = React.useContext(AuthContext);
+  const { signOut } = React.useContext(AuthContext);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +79,7 @@ export default function Header() {
 
   const handleSingOut = () => {
     handleMenuClose();
-    singOut();
+    signOut();
   }
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {

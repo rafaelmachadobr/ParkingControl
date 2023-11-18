@@ -1,11 +1,25 @@
-import { createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { api } from "../services/api";
+import { UserResponse } from "../types/UserResponse";
 
-export const AuthContext = createContext();
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+interface AuthContextData {
+  user: UserResponse | null;
+  signIn: ({ email, password }: { email: string; password: string }) => void;
+  signOut: () => void;
+  signed: boolean;
+}
+
+export const AuthContext = createContext<AuthContextData>(
+  {} as AuthContextData
+);
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<UserResponse | null>(null);
 
   useEffect(() => {
     const loadingStoreData = () => {
@@ -13,13 +27,19 @@ export const AuthProvider = ({ children }) => {
       const storageToken = localStorage.getItem("@Auth:token");
 
       if (storageUser && storageToken) {
-        setUser(storageUser);
+        setUser(JSON.parse(storageUser));
       }
     };
     loadingStoreData();
   }, []);
 
-  const signIn = async ({ email, password }) => {
+  const signIn = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
     try {
       const response = await api.post("/api/v1/auth/login", {
         email,
@@ -41,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const singOut = () => {
+  const signOut = () => {
     localStorage.clear();
     setUser(null);
     return <Navigate to="/" />;
@@ -52,7 +72,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         signIn,
-        singOut,
+        signOut,
         signed: !!user,
       }}
     >
