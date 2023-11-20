@@ -6,16 +6,24 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
+
+interface LoginForm {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>();
   const { signIn, signed } = React.useContext(AuthContext);
-
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -26,18 +34,13 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const onSubmit = async (data: LoginForm) => {
+    const { email, password } = data;
 
     if (!email || !password) {
-      alert("Preencha todos os campos!");
+      toast.error("Preencha todos os campos!");
       return;
     }
-
-    const data = {
-      email,
-      password,
-    };
 
     signIn(data);
   };
@@ -74,36 +77,32 @@ const Login = () => {
           className="bg-white rounded-lg shadow-lg p-6"
         >
           <Typography component="h1" variant="h5">
-            Bem vindo de volta!
+            Bem-vindo de volta!
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            sx={{ mt: 1 }}
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
               label="Endereço de Email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
               autoComplete="email"
               autoFocus
             />
+            {errors.email && (
+              <Typography variant="caption" color="error">
+                {errors.email.message}
+              </Typography>
+            )}
             <TextField
               margin="normal"
               required
               fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
               name="password"
               label="Senha"
               type={showPassword ? "text" : "password"}
-              id="password"
               autoComplete="current-password"
               InputProps={{
                 endAdornment: (
@@ -120,6 +119,11 @@ const Login = () => {
                 ),
               }}
             />
+            {errors.password && (
+              <Typography variant="caption" color="error">
+                {errors.password.message}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -128,15 +132,15 @@ const Login = () => {
             >
               Entrar
             </Button>
-            <div>
-              <Typography color="text.secondary" align="center">
-                Não tem uma conta?{" "}
-                <Link to="/auth/register" className="text-blue-500">
-                  Registre-se
-                </Link>
-              </Typography>
-            </div>
-          </Box>
+          </form>
+          <div>
+            <Typography color="text.secondary" align="center">
+              Não tem uma conta?{" "}
+              <Link to="/auth/register" className="text-blue-500">
+                Registre-se
+              </Link>
+            </Typography>
+          </div>
         </Box>
       </Container>
     </main>

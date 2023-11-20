@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "../services/api";
 import { Owner } from "../types/Owner";
 import OwnerForm from "./OwnerForm";
+import { toast } from "react-toastify";
 
 interface OwnerModalProps {
   open: boolean;
@@ -25,12 +26,12 @@ const OwnerModal: React.FC<OwnerModalProps> = ({ open, handleClose }) => {
         },
       });
 
-      alert(data.firstName + " adicionado com sucesso!");
+      toast.success("Cliente adicionado com sucesso!");
 
       reset();
       handleClose();
     } catch (error) {
-      alert("Erro ao adicionar cliente!");
+      toast.error("Erro ao adicionar cliente!");
     }
   };
 
