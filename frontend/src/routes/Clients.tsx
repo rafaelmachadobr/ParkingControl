@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import OwnerList from "../components/OwnerList";
 import Siderbar from "../components/Sidebar";
 import { AuthContext } from "../contexts/AuthContext";
-import OwnerList from "../components/OwnerList";
 
 const Clients = () => {
   const { signed } = useContext(AuthContext);
@@ -29,10 +29,12 @@ const Clients = () => {
   return (
     <div className="flex">
       <Siderbar />
-      <div className="w-full">
+      <main className="bg-gray-100 w-full h-screen">
         <Header />
-        <OwnerList />
-      </div>
+        <div className="container mx-auto px-6 py-8">
+          <OwnerList />
+        </div>
+      </main>
     </div>
   );
 };

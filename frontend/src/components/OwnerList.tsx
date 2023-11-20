@@ -1,10 +1,10 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import OwnerTable from "./OwnerTable";
-import OwnerModal from "./OwnerModal";
 import { api } from "../services/api";
 import { Owner } from "../types/Owner";
 import Loading from "./Loading";
+import OwnerModal from "./OwnerModal";
+import OwnerTable from "./OwnerTable";
 
 const OwnerList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,7 +38,14 @@ const OwnerList = () => {
   }
 
   return (
-    <Container sx={{ mt: 4 }}>
+    <Container
+      sx={{
+        backgroundColor: "#fff",
+        padding: "20px",
+        borderRadius: 1,
+        border: "1px solid #ccc",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -48,11 +55,7 @@ const OwnerList = () => {
         }}
       >
         <Typography variant="h4">Clientes</Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-        >
+        <Button variant="contained" color="primary" onClick={handleOpen}>
           Adicionar
         </Button>
       </Box>

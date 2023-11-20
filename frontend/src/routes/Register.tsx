@@ -9,18 +9,23 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
 import { api } from "../services/api";
 import { UserRequest } from "../types/UserRequest";
 
 const Register = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-
   const { signed } = React.useContext(AuthContext);
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<UserRequest>();
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
@@ -29,41 +34,34 @@ const Register = () => {
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
 
-  const handleSaveRegister = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    if (!email || !password || !confirmPassword) {
-      alert("Preencha todos os campos!");
+  const onSubmit = async (data: UserRequest) => {
+    if (!data.email || !data.password || !data.confirmPassword) {
+      toast.error("Preencha todos os campos!");
       return;
     }
 
-    if (password !== confirmPassword) {
-      alert("As senhas não conferem!");
+    if (data.password !== data.confirmPassword) {
+      toast.error("As senhas não conferem!");
       return;
     }
 
-    const data: UserRequest = {
-      email,
-      password,
-      role: "ADMIN",
-    };
+    try {
+      const response = await api.post("/api/v1/auth/register", {
+        email: data.email,
+        password: data.password,
+        role: "ADMIN",
+      });
 
-    const response = await api.post("/api/v1/auth/register", data);
+      if (response.data.error) {
+        toast.error(response.data.error);
+        return;
+      }
 
-    if (response.data.error) {
-      alert("Erro ao cadastrar usuário!");
-      return;
+      toast.success("Usuário cadastrado com sucesso!");
+      navigate("/auth/login");
+    } catch (error) {
+      toast.error("Erro ao cadastrar usuário!");
     }
-
-    alert("Usuário cadastrado com sucesso!");
-
-    navigate("/auth/login");
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
   };
 
   React.useEffect(() => {
@@ -100,34 +98,30 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Registre-se
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSaveRegister}
-            sx={{ mt: 1 }}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
               label="Endereço de Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              name="email"
+              {...register("email", { required: "Campo obrigatório" })}
               autoComplete="email"
               autoFocus
             />
+            {errors.email && (
+              <Typography variant="caption" color="error">
+                {errors.email.message}
+              </Typography>
+            )}
             <TextField
               margin="normal"
               required
               fullWidth
+              {...register("password", { required: "Campo obrigatório" })}
               name="password"
               label="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
-              id="password"
               autoComplete="current-password"
               InputProps={{
                 endAdornment: (
@@ -135,7 +129,9 @@ const Register = () => {
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                      }}
                       edge="end"
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -144,16 +140,22 @@ const Register = () => {
                 ),
               }}
             />
+            {errors.password && (
+              <Typography variant="caption" color="error">
+                {errors.password.message}
+              </Typography>
+            )}
             <TextField
               margin="normal"
               required
               fullWidth
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              {...register("confirmPassword", {
+                required: "Campo obrigatório",
+                validate: (value) =>
+                  value === watch("password") || "As senhas não conferem",
+              })}
               label="Confirmar Senha"
               type={showConfirmPassword ? "text" : "password"}
-              id="confirmPassword"
               autoComplete="current-password"
               InputProps={{
                 endAdornment: (
@@ -161,7 +163,9 @@ const Register = () => {
                     <IconButton
                       aria-label="toggle confirm password visibility"
                       onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                      }}
                       edge="end"
                     >
                       {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
@@ -170,6 +174,11 @@ const Register = () => {
                 ),
               }}
             />
+            {errors.confirmPassword && (
+              <Typography variant="caption" color="error">
+                {errors.confirmPassword.message}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -178,15 +187,15 @@ const Register = () => {
             >
               Criar Conta
             </Button>
-            <div>
-              <Typography color="text.secondary" align="center">
-                Já tem uma conta?{" "}
-                <Link to="/auth/login" className="text-blue-500">
-                  Entrar
-                </Link>
-              </Typography>
-            </div>
-          </Box>
+          </form>
+          <div>
+            <Typography color="text.secondary" align="center">
+              Já tem uma conta?{" "}
+              <Link to="/auth/login" className="text-blue-500">
+                Entrar
+              </Link>
+            </Typography>
+          </div>
         </Box>
       </Container>
     </main>
