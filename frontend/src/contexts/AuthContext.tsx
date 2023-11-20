@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { UserResponse } from "../types/UserResponse";
 
@@ -46,7 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         password,
       });
       if (response.data.error) {
-        alert(response.data.error);
+        toast.error(response.data.error);
       } else {
         setUser(response.data);
         api.defaults.headers.common[
@@ -55,15 +56,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         localStorage.setItem("@Auth:user", JSON.stringify(response.data.user));
         localStorage.setItem("@Auth:token", response.data.token);
+
+        toast.success("Login realizado com sucesso!");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Erro ao fazer login!");
     }
   };
 
   const signOut = () => {
     localStorage.clear();
     setUser(null);
+    toast.success("Logout realizado com sucesso!");
     return <Navigate to="/" />;
   };
 
