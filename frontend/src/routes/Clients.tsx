@@ -4,8 +4,9 @@ import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Siderbar from "../components/Sidebar";
 import { AuthContext } from "../contexts/AuthContext";
+import OwnerList from "../components/OwnerList";
 
-const Parking = () => {
+const Clients = () => {
   const { signed } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
@@ -30,9 +31,10 @@ const Parking = () => {
       <Siderbar />
       <div className="w-full">
         <Header />
+        <OwnerList />
       </div>
     </div>
   );
 };
 
-export default Parking;
+export default Clients;

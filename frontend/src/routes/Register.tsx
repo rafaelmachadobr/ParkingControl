@@ -48,8 +48,6 @@ const Register = () => {
       role: "ADMIN",
     };
 
-    console.log(data);
-
     const response = await api.post("/api/v1/auth/register", data);
 
     if (response.data.error) {
