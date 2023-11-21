@@ -9,8 +9,9 @@ import ErrorPage from "./routes/ErrorPage.tsx";
 import Login from "./routes/Login.tsx";
 import Overview from "./routes/Overview.tsx";
 import Parking from "./routes/Parking.tsx";
-import Register from "./routes/Register.tsx";
 import ParkingSpots from "./routes/ParkingSpots.tsx";
+import Register from "./routes/Register.tsx";
+import Vehicles from "./routes/Vehicles.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Overview /> },
       { path: "/parking", element: <Parking /> },
       { path: "/clients", element: <Clients /> },
+      { path: "/vehicles", element: <Vehicles /> },
       { path: "/parking-spots", element: <ParkingSpots /> },
       { path: "/auth/login", element: <Login /> },
       { path: "/auth/register", element: <Register /> },

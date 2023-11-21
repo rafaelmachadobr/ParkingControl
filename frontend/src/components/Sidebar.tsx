@@ -21,7 +21,7 @@ const Sidebar = () => {
   const menus: Menu[] = [
     { title: "Visão Geral", icon: <FaChartBar />, route: "/" },
     { title: "Clientes", icon: <FaUsers />, route: "/clients" },
-    { title: "Carros", icon: <FaCar />, route: "/cars" },
+    { title: "Veículos", icon: <FaCar />, route: "/vehicles" },
     { title: "Vagas", icon: <FaParking />, route: "/parking-spots" },
     { title: "Estacionamento", icon: <FaClock />, route: "/parking" },
     { title: "Conta", icon: <FaUser />, route: "/account" },

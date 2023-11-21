@@ -89,7 +89,7 @@ const Overview = () => {
                 </Grid>
                 <Grid xs={12} md={6} lg={4} item>
                   <OverviewTraffic
-                    chartSeries={[63, 15, 22, 12, 14]}
+                    chartSeries={[6, 2, 5, 4, 1]}
                     labels={["Segunda", "Terça", "Quarta", "Quinta", "Sexta"]}
                     sx={{ height: "100%" }}
                   />
