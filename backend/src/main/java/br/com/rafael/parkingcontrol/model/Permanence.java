@@ -26,7 +26,7 @@ public class Permanence {
 
     private Double totalValue;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     @NotNull(message = "Car is mandatory")
     private Car car;

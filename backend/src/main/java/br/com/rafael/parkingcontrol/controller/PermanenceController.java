@@ -29,7 +29,12 @@ public class PermanenceController {
     public ResponseEntity<Permanence> findById(@PathVariable String id) {
         Permanence permanence = permanenceService.findById(id);
 
-        if (permanence != null) {
+        ParkingSpot parkingSpot = parkingSpotService.findById(permanence.getParkingSpot().getId());
+
+        if (parkingSpot != null && parkingSpot.getIsOccupied()) {
+            parkingSpot.setIsOccupied(false);
+            parkingSpotService.save(parkingSpot);
+
             return ResponseEntity.status(HttpStatus.OK).body(permanence);
         }
 
@@ -39,6 +44,7 @@ public class PermanenceController {
     @GetMapping("{id}/exit")
     public ResponseEntity<Permanence> performExit(@PathVariable String id) {
         Permanence permanence = permanenceService.performExit(id);
+
 
         if (permanence != null) {
             return ResponseEntity.status(HttpStatus.OK).body(permanence);
