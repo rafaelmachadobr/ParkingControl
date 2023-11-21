@@ -8,8 +8,8 @@ INSERT INTO cars (id, plate, model, color, brand, owner_id) VALUES ('a4f15774-83
 INSERT INTO cars (id, plate, model, color, brand, owner_id) VALUES ('b3b4c2a6-83ec-11ee-b962-0242ac120002', 'MPP-8609', 'Caminhonete', 'Vermelho', 'Chevrolet', '822ee87e-83ec-11ee-b962-0242ac120002');
 INSERT INTO cars (id, plate, model, color, brand, owner_id) VALUES ('b7c0cf6e-83ec-11ee-b962-0242ac120002', 'JGS-7007', 'Sedan', 'Prata', 'Ford', '8a2ef032-83ec-11ee-b962-0242ac120002');
 
-INSERT INTO parking_spots (id, number, is_occupied) VALUES ('6af44052-83f4-11ee-b962-0242ac120002', 101, false);
-INSERT INTO parking_spots (id, number, is_occupied) VALUES ('6f8eb516-83f4-11ee-b962-0242ac120002', 102, true);
-INSERT INTO parking_spots (id, number, is_occupied) VALUES ('71e3b7c6-83f4-11ee-b962-0242ac120002', 103, false);
-INSERT INTO parking_spots (id, number, is_occupied) VALUES ('744a876a-83f4-11ee-b962-0242ac120002', 104, true);
-INSERT INTO parking_spots (id, number, is_occupied) VALUES ('76b26bda-83f4-11ee-b962-0242ac120002', 105, false);
+INSERT INTO parking_spots (id, number, is_occupied) VALUES ('6af44052-83f4-11ee-b962-0242ac120002', 1, false);
+INSERT INTO parking_spots (id, number, is_occupied) VALUES ('6f8eb516-83f4-11ee-b962-0242ac120002', 2, false);
+INSERT INTO parking_spots (id, number, is_occupied) VALUES ('71e3b7c6-83f4-11ee-b962-0242ac120002', 3, false);
+INSERT INTO parking_spots (id, number, is_occupied) VALUES ('744a876a-83f4-11ee-b962-0242ac120002', 4, false);
+INSERT INTO parking_spots (id, number, is_occupied) VALUES ('76b26bda-83f4-11ee-b962-0242ac120002', 5, false);
