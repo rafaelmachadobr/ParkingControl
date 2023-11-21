@@ -20,8 +20,8 @@ const Sidebar = () => {
   const menus: Menu[] = [
     { title: "Visão Geral", icon: <FaChartBar />, route: "/" },
     { title: "Clientes", icon: <FaUsers />, route: "/clients" },
-    { title: "Estacionamento", icon: <FaCar />, route: "/parking" },
     { title: "Vagas", icon: <FaParking />, route: "/parking-spots" },
+    { title: "Estacionamento", icon: <FaCar />, route: "/parking" },
     { title: "Conta", icon: <FaUser />, route: "/account" },
     { title: "Configurações", icon: <FaCog />, route: "/settings" },
   ];
@@ -35,7 +35,9 @@ const Sidebar = () => {
       <img
         src="./src/assets/control.png"
         className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple 
-           border-2 rounded-full transition-transform transform hover:scale-150 ${!open && "rotate-180"}`}
+           border-2 rounded-full transition-transform transform hover:scale-150 ${
+             !open && "rotate-180"
+           }`}
         onClick={() => setOpen(!open)}
       />
       <Link to="/">

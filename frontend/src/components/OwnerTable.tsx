@@ -16,7 +16,7 @@ const OwnerTable: React.FC<OwnerTableProps> = ({ owners, searchTerm }) => {
   ];
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: 400 }}>
       <DataGrid
         rows={owners.filter(
           (owner) =>

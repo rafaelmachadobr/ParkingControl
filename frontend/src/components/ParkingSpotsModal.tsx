@@ -30,9 +30,8 @@ const ParkingSpotsModal: React.FC<ParkingSpotModalProps> = ({
         },
       });
 
-      window.location.reload();
-
       toast.success("Vaga adicionada com sucesso!");
+      toast.info("Atualize a página para ver as alterações");
 
       reset();
       handleClose();

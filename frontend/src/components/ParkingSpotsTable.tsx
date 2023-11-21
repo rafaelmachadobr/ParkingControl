@@ -7,7 +7,7 @@ interface ParkingSpotsTableProps {
   searchTerm: string;
 }
 
-const convertBoolToString = (value: boolean): string => (value ? "Sim" : "Não");
+const convertBoolToString = (value: boolean): string => (value ? "Não" : "Sim");
 
 const ParkingSpotsTable: React.FC<ParkingSpotsTableProps> = ({
   parkingSpots,
@@ -23,9 +23,9 @@ const ParkingSpotsTable: React.FC<ParkingSpotsTableProps> = ({
       renderCell: (params) => (
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           {params.value ? (
-            <CheckCircleOutline color="success" />
-          ) : (
             <CheckCircleOutline color="error" />
+          ) : (
+            <CheckCircleOutline color="success" />
           )}
           {convertBoolToString(params.value as boolean)}
         </div>
@@ -34,7 +34,7 @@ const ParkingSpotsTable: React.FC<ParkingSpotsTableProps> = ({
   ];
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: 400 }}>
       <DataGrid
         rows={parkingSpots.filter(
           (parkingSpot) =>
@@ -51,7 +51,8 @@ const ParkingSpotsTable: React.FC<ParkingSpotsTableProps> = ({
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 10, 25]}
+        onRowSelectionModelChange={(selection) => console.log(selection)}
         checkboxSelection
       />
     </div>

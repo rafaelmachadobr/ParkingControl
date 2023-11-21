@@ -26,9 +26,8 @@ const OwnerModal: React.FC<OwnerModalProps> = ({ open, handleClose }) => {
         },
       });
 
-      window.location.reload();
-
       toast.success("Cliente adicionado com sucesso!");
+      toast.info("Atualize a página para ver as alterações");
 
       reset();
       handleClose();
