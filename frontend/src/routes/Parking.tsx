@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Siderbar from "../components/Sidebar";
 import { AuthContext } from "../contexts/AuthContext";
+import ParkingList from "../components/ParkingList";
 
 const Parking = () => {
   const { signed } = useContext(AuthContext);
@@ -28,9 +29,12 @@ const Parking = () => {
   return (
     <div className="flex">
       <Siderbar />
-      <div className="w-full">
+      <main className="bg-gray-100 w-full h-screen">
         <Header />
-      </div>
+        <div className="container mx-auto px-6 py-8">
+          <ParkingList />
+        </div>
+      </main>
     </div>
   );
 };
