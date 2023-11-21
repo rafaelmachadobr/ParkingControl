@@ -21,7 +21,7 @@ const Sidebar = () => {
     { title: "Visão Geral", icon: <FaChartBar />, route: "/" },
     { title: "Clientes", icon: <FaUsers />, route: "/clients" },
     { title: "Estacionamento", icon: <FaCar />, route: "/parking" },
-    { title: "Vagas", icon: <FaParking />, route: "/spots" },
+    { title: "Vagas", icon: <FaParking />, route: "/parking-spots" },
     { title: "Conta", icon: <FaUser />, route: "/account" },
     { title: "Configurações", icon: <FaCog />, route: "/settings" },
   ];

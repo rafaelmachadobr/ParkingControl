@@ -1,9 +1,9 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { Owner } from "../types/Owner";
 import OwnerForm from "./OwnerForm";
-import { toast } from "react-toastify";
 
 interface OwnerModalProps {
   open: boolean;
@@ -25,6 +25,8 @@ const OwnerModal: React.FC<OwnerModalProps> = ({ open, handleClose }) => {
           Authorization: `Bearer ${localStorage.getItem("@Auth:token")}`,
         },
       });
+
+      window.location.reload();
 
       toast.success("Cliente adicionado com sucesso!");
 

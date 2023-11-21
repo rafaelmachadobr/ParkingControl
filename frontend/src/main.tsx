@@ -10,6 +10,7 @@ import Login from "./routes/Login.tsx";
 import Overview from "./routes/Overview.tsx";
 import Parking from "./routes/Parking.tsx";
 import Register from "./routes/Register.tsx";
+import ParkingSpots from "./routes/ParkingSpots.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Overview /> },
       { path: "/parking", element: <Parking /> },
       { path: "/clients", element: <Clients /> },
+      { path: "/parking-spots", element: <ParkingSpots /> },
       { path: "/auth/login", element: <Login /> },
       { path: "/auth/register", element: <Register /> },
     ],
