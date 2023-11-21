@@ -18,7 +18,7 @@ public class ParkingSpot {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull(message = "Number is mandatory")
     @Min(value = 1, message = "Number must be greater than 0")
     private Integer number;
