@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   FaCar,
   FaChartBar,
+  FaClock,
   FaCog,
   FaParking,
   FaUser,
@@ -20,8 +21,9 @@ const Sidebar = () => {
   const menus: Menu[] = [
     { title: "Visão Geral", icon: <FaChartBar />, route: "/" },
     { title: "Clientes", icon: <FaUsers />, route: "/clients" },
+    { title: "Carros", icon: <FaCar />, route: "/cars" },
     { title: "Vagas", icon: <FaParking />, route: "/parking-spots" },
-    { title: "Estacionamento", icon: <FaCar />, route: "/parking" },
+    { title: "Estacionamento", icon: <FaClock />, route: "/parking" },
     { title: "Conta", icon: <FaUser />, route: "/account" },
     { title: "Configurações", icon: <FaCog />, route: "/settings" },
   ];

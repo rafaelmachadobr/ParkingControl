@@ -92,8 +92,7 @@ const ParkingTable: React.FC<ParkingTableProps> = ({
                 .toString()
                 .includes(searchTerm.toLowerCase()) ||
               permanence.entryTime.toString().includes(searchTerm.toLowerCase())
-          )
-          .filter((permanence) => !permanence.exitTime)}
+          )}
         columns={columns}
         initialState={{
           pagination: {

@@ -1,10 +1,11 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, InputAdornment, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { Owner } from "../types/Owner";
 import Loading from "./Loading";
 import OwnerModal from "./OwnerModal";
 import OwnerTable from "./OwnerTable";
+import { Search } from "@mui/icons-material";
 
 const OwnerList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,12 +61,18 @@ const OwnerList = () => {
         </Button>
       </Box>
       <TextField
-        id="search"
         label="Pesquisar"
         variant="outlined"
+        size="small"
         sx={{ mb: 4 }}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
       />
       <OwnerTable owners={owners} searchTerm={searchTerm} />
       <OwnerModal open={open} handleClose={handleClose} />

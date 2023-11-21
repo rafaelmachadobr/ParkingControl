@@ -1,10 +1,11 @@
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, InputAdornment, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { ParkingSpot } from "../types/ParkingSpot";
 import Loading from "./Loading";
 import ParkingSpotsModal from "./ParkingSpotsModal";
 import ParkingSpotsTable from "./ParkingSpotsTable";
+import { Search } from "@mui/icons-material";
 
 const ParkingSpotsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,11 +61,18 @@ const ParkingSpotsList = () => {
         </Button>
       </Box>
       <TextField
-        id="outlined-basic"
         label="Pesquisar"
         variant="outlined"
+        size="small"
         sx={{ mb: 4 }}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
       />
       <ParkingSpotsTable parkingSpots={parkingSpots} searchTerm={searchTerm} />
       <ParkingSpotsModal open={open} handleClose={handleClose} />

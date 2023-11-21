@@ -32,7 +32,6 @@ const ParkingList = () => {
           },
         });
 
-        console.log(response.data);
         setPermanences(response.data);
       } catch (error) {
         console.log(error);
