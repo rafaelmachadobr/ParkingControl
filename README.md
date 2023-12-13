@@ -151,12 +151,12 @@ Execute a aplicação
 
 A aplicação será aberta na porta:`8080` - acesse <a href="http://localhost:8080">http://localhost:8080</a>
 
-## Diagrama de Classes
+## Diagrama UML
 
-A seguir, apresentamos o diagrama de classes que ilustra a estrutura e as relações entre as principais entidades do Sistema de Controle de Estacionamento. Este diagrama oferece uma visão abrangente da organização do sistema, facilitando a compreensão das interações entre os diferentes componentes.
+A seguir, apresentamos o diagrama UML que ilustra a estrutura e as relações entre as principais entidades do Sistema de Controle de Estacionamento. Este diagrama oferece uma visão abrangente da organização do sistema, facilitando a compreensão das interações entre os diferentes componentes.
 
 <p align="center">
-    <img alt="Diagrama de Classes" title="Diagrama de Classes" src="assets/diagrama.png" width="100%">
+    <img alt="Diagrama UML" title="Diagrama UML" src="assets/diagrama.png" width="100%">
 </p>
 
 ## Licença
